@@ -1,0 +1,30 @@
+name: Android
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master, main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      TARGET: vanilla
+      OS: android
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install tools
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install ccache -y
+      - name: Update Android SDK CMake version
+        run: echo "y" | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager "cmake;3.30.3"
+      - name: Build
+        run: JAVA_HOME=$JAVA_HOME_17_X64 ./.ci/android.sh
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: azahar-apk
+          path: src/android/app/build/outputs/apk/**/*.apk
