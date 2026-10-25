@@ -27,7 +27,8 @@ enum class StringSetting(
         "_back"
     ),
     WEB_API_URL(SettingKeys.web_api_url(), Settings.SECTION_NETWORK, ""),
-    NETWORK_TOKEN(SettingKeys.network_token(), Settings.SECTION_NETWORK, "");
+    NETWORK_TOKEN(SettingKeys.network_token(), Settings.SECTION_NETWORK, ""),
+    PP_SHADER_NAME(SettingKeys.pp_shader_name(), Settings.SECTION_RENDERER, "xbr-lv3 (builtin)");
 
     override var string: String = defaultValue
 
@@ -52,7 +53,8 @@ enum class StringSetting(
             CAMERA_OUTER_LEFT_NAME,
             CAMERA_OUTER_LEFT_CONFIG,
             CAMERA_OUTER_RIGHT_NAME,
-            CAMERA_OUTER_RIGHT_CONFIG
+            CAMERA_OUTER_RIGHT_CONFIG,
+            PP_SHADER_NAME
         )
 
         fun from(key: String): StringSetting? = StringSetting.values().firstOrNull { it.key == key }

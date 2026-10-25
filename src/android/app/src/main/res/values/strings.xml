@@ -1124,4 +1124,7 @@
     <string name="update_check_channel_stable">Stable</string>
     <string name="update_check_channel_prerelease">Prerelease</string>
 
+    <string name="pp_shader_title">Shader de pós-processamento</string>
+    <string name="pp_shader_description">xBR lv3 suaviza os pixels na tela. Só funciona com OpenGL ES (muda a API gráfica sozinho).</string>
+
 </resources>

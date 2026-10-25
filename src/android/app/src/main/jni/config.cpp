@@ -165,13 +165,18 @@ void Config::ReadValues() {
 
     ReadSetting("Renderer", Settings::values.render_3d);
     ReadSetting("Renderer", Settings::values.factor_3d);
-    std::string default_shader = "None (builtin)";
+    std::string default_shader = "xbr-lv3 (builtin)";
     if (Settings::values.render_3d.GetValue() == Settings::StereoRenderOption::Anaglyph)
         default_shader = "Dubois (builtin)";
     else if (Settings::values.render_3d.GetValue() == Settings::StereoRenderOption::Interlaced)
         default_shader = "Horizontal (builtin)";
     Settings::values.pp_shader_name =
         android_config->GetString("Renderer", "pp_shader_name", default_shader);
+    // Post-processing shaders only exist in the OpenGL renderer.
+    if (Settings::values.pp_shader_name.GetValue() != "None (builtin)" &&
+        Settings::values.graphics_api.GetValue() == Settings::GraphicsAPI::Vulkan) {
+        Settings::values.graphics_api = Settings::GraphicsAPI::OpenGL;
+    }
     ReadSetting("Renderer", Settings::values.filter_mode);
     ReadSetting("Renderer", Settings::values.use_integer_scaling);
 
@@ -204,7 +209,7 @@ void Config::ReadValues() {
     Settings::values.async_presentation = true;
     Settings::values.simulate_3ds_gpu_timings = false;
     if (Settings::values.resolution_factor.GetValue() == 0 ||
-        Settings::values.resolution_factor.GetValue() > 2) {
+        Settings::values.resolution_factor.GetValue() > 3) {
         Settings::values.resolution_factor = 1;
     }
     // Layout

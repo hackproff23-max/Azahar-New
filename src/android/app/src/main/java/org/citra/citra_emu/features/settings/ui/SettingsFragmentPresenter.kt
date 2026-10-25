@@ -913,6 +913,17 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             )
             add(
+                StringSingleChoiceSetting(
+                    StringSetting.PP_SHADER_NAME,
+                    R.string.pp_shader_title,
+                    R.string.pp_shader_description,
+                    arrayOf("Nenhum", "xBR lv3 (OpenGL ES)"),
+                    arrayOf("None (builtin)", "xbr-lv3 (builtin)"),
+                    StringSetting.PP_SHADER_NAME.key,
+                    StringSetting.PP_SHADER_NAME.defaultValue
+                )
+            )
+            add(
                 SwitchSetting(
                     BooleanSetting.LINEAR_FILTERING,
                     R.string.linear_filtering,
